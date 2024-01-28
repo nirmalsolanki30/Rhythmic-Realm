@@ -54,7 +54,7 @@ const Login = ({setAuth}) => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Login
