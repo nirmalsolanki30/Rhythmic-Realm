@@ -1,1 +1,1 @@
-export {default as loginBg } from "../video/music_bg.mp4";
+export {default as music_bg } from "../video/music_bg.mp4";
