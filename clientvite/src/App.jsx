@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom'
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home   from './components/Home'
 import Login from './components/Login'
+import { Dashboard } from './components';
 import { app } from './config/firebase.config'
 import { getAuth } from 'firebase/auth'
 
@@ -35,6 +36,10 @@ const App = () => {
       }else{
         setAuth(false);
         window.localStorage.setItem("auth" , "false");
+        dispatch({
+          type: actionType.SET_USER,
+          user:null,
+        });
         <Navigate to = "/login"/>;
       }
     })
@@ -47,6 +52,7 @@ const App = () => {
       <Routes>
         <Route path='/login' element={<Login setAuth={setAuth}/>}/>
         <Route path='/*' element={<Home />}/>
+        <Route path='/dashboard/*' element={< Dashboard/>}/>
       </Routes>
       </BrowserRouter>
     </div>
