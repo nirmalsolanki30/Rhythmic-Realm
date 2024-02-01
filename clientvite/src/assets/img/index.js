@@ -1,1 +1,1 @@
-export {default as Logo } from "../img/logo.jpeg";
+export {default as Logo } from "../img/music2.jpg";

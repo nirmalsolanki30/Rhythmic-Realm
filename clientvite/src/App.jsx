@@ -10,7 +10,7 @@ import { getAuth } from 'firebase/auth'
 import {AnimatePresence} from 'framer-motion'
 import { validateUser } from './api';
 import { useStateValue } from './context/StateProvider';
-import { actionType } from './context/reducer';
+import { actionType } from './Context/reducer';
 
 const App = () => {
 
