@@ -40,6 +40,7 @@ router.get("/getOne/:id", async(req,res)=>{
 router.get("/getAll", async (req,res)=> {
   
   const data = await artist.find();
+  //console.log(data);
   if(data){
    return res.status(200).send({success :true, artist : data});
   }

@@ -41,8 +41,8 @@ const Header = () => {
       className='flex items-center ml-auto cursor-pointer gap-2 relative'>
         <img src={user?.user.imageURL} className='w-12 h-12 min-w-[44px] object-cover rounded-full shadow-lg:' alt="" referrerPolicy='no-referrer' />
         <div className='flex flex-col'>
-          <p className='text-textcolor text-lg hover: text-headingColor font-semibold'>{user?.user?.name}</p>
-          <p className='flex items-center gap-2 text-xs text-gray-500 font-normal'>Premium Member. <FaCrown className='text-sm -ml-1 text-yellow-500' /></p>
+          <p className='text-textcolor text-lg hover: text-white font-semibold'>{user?.user?.name}</p>
+          <p className='flex items-center gap-2 text-xs text-white font-normal'>Premium Member. <FaCrown className='text-sm -ml-1 text-yellow-500' /></p>
         </div>
 
         {isMenu && (<motion.div 

@@ -8,11 +8,14 @@ import { RiUserStarFill } from "react-icons/ri";
 import { bgColors } from "../utils/styles";
 
 export const DashboardCard =({ icon, name, count}) => {
+  
+  const bg_Color = bgColors[parseInt(Math.random()*bgColors.length)]
+
   return (
-    <div className='flex p-4 w-56 gap-3 h-32 rounded-md shadow-md bg-stone-700 items-center justify-center'>
+    <div style={{background : `${bg_Color}`}} className='flex p-4 w-56 gap-3 h-32 rounded-md shadow-md bg-stone-700 items-center justify-center'>
       {icon}
-      <p className='text-xl text-white font-semibold'>{name}</p>
-      <p className='text-xl text-white font-semibold'>{count}</p>
+      <p className='text-xl text-stone-900 font-semibold'>{name}</p>
+      <p className='text-xl text-stone-900 font-semibold'>{count}</p>
     </div>
   )
 }
@@ -26,9 +29,10 @@ const DashboardHome = () => {
   useEffect(() => {
     if (!allUsers) {
       getAllUsers().then((data) => {
+        console.log(data);
         dispatch({
           type: actionType.SET_ALL_USERS,
-          allUsers: data.data,
+          allUsers: data.cursor,
         });
       });
     }
@@ -37,20 +41,24 @@ const DashboardHome = () => {
       getAllSongs().then((data) => {
         dispatch({
           type: actionType.SET_ALL_SONGS,
-          allSongs: data.data,
+          allSongs: data.song,
         });
       });
     }
 
     if (!allArtists) {
       getAllArtist().then((data) => {
-        dispatch({ type: actionType.SET_ARTISTS, allArtists: data.data });
+        dispatch({ 
+        type: actionType.SET_ALL_ARTISTS,
+        allArtists: data.artist });
       });
     }
 
     if (!allAlbums) {
       getAllAlbums().then((data) => {
-        dispatch({ type: actionType.SET_ALL_ALBUMNS, allAlbums: data.data });
+        dispatch({ 
+        type: actionType.SET_ALL_ALBUMS, 
+        allAlbums: data.album });
       });
     }
   },[])
@@ -67,7 +75,7 @@ const DashboardHome = () => {
     </div>
     <div className='w-full p-6 grid grid-rows-2 gap-9 '>
     {/* prettier-ignore */}
-    <DashboardCard icon={<RiUserStarFill className="text-3xl text-red-600" />} name={"Artist"} count={allArtists?.length > 0 ? artists?.length : 0} />
+    <DashboardCard icon={<RiUserStarFill className="text-3xl text-red-600" />} name={"Artist"} count={allArtists?.length > 0 ? allArtists?.length : 0} />
 
     {/* prettier-ignore */}
     <DashboardCard icon={<GiMusicalNotes className="text-3xl text-red-600" />} name={"Album"} count={allAlbums?.length > 0 ? allAlbums?.length : 0} />
