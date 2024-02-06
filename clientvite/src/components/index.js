@@ -10,3 +10,6 @@ export {default as DashboardHome} from "./DashboardHome";
 export {default as DashboardSongs} from "./DashboardSongs";
 export {default as DashboardArtists} from "./DashboardArtists";
 export {default as DashboardAlbums} from "./DashboardAlbums";
+export {default as DashBoardNewSong} from "./DashBoardNewSong";
+
+export {default as FilterButtons} from "./FilterButtons";
