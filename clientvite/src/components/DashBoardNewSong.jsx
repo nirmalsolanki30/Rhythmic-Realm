@@ -6,6 +6,12 @@ import {
   uploadBytesResumable,
   deleteObject,
 } from "firebase/storage";
+import {
+  getAllAlbums,
+  getAllArtist,
+  getAllSongs,
+
+} from "../api";
 import { motion } from "framer-motion";
 
 import { BiCloudUpload } from "react-icons/bi";
@@ -15,12 +21,33 @@ import { storage } from "../config/firebase.config";
 import { useStateValue } from "../context/StateProvider";
 import FilterButtons from "./FilterButtons";
 import { actionType } from "../context/reducer";
-//import { filterByLanguage, filters } from "../utils/supportfunctions";
+import { filterByLanguage, filters } from "../utils/spportfunctions";
 // import AlertSuccess from "./AlertSuccess";
 // import AlertError from "./AlertError";
 
 const DashBoardNewSong = () => {
+
   const [songName , setSongName]=useState("");
+  const [{allArtists,allAlbums},dispatch]=useStateValue();
+
+  useEffect(()=>{
+     if(!allArtists){
+     getAllArtist().then((data)=>{
+      dispatch({
+        type: actionType.SET_ALL_ARTISTS,
+        allArtists : data.artist,
+      });
+     });
+    }
+     if(!allAlbums){
+     getAllAlbums().then((data)=>{
+      dispatch({
+        type: actionType.SET_ALL_ALBUMS,
+         allAlbums : data.album,
+      });
+     })
+     }
+  },[]);
   return (
     <div className="flex items-center justify-center p-4 border border-gray-300 rounded-md">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
@@ -32,10 +59,10 @@ const DashBoardNewSong = () => {
             onChange={(e) => setSongName(e.target.value)}
             />
             <div className="flex w-full justify-between flex-wrap items-center gap-4">
-            <FilterButtons filterData={""} flag={"Artist"} />
-            <FilterButtons filterData={""} flag={"Album"} />
-            <FilterButtons filterData={""} flag={"Language"} />
-            <FilterButtons filterData={""} flag={"Category"} />
+            <FilterButtons filterData={allArtists} flag={"Artist"} />
+            <FilterButtons filterData={allAlbums} flag={"Album"} />
+            <FilterButtons filterData={filterByLanguage} flag={"Language"} />
+            <FilterButtons filterData={filters} flag={"Category"} />
             </div>
         </div>
       </div>
