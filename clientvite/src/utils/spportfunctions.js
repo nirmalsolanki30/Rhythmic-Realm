@@ -12,3 +12,5 @@ export const filters = [
     { id: 4, name: "Telungu", value: "Telungu" },
     { id: 5, name: "Hindi", value: "hindi" },
   ];
+
+  

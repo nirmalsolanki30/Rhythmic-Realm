@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useStateValue } from '../context/StateProvider'
 import { getAllAlbums, getAllArtist, getAllSongs, getAllUsers } from "../api";
-import { actionType } from "../Context/reducer";
+import { actionType } from '../context/reducer';
 import { FaUsers } from "react-icons/fa";
 import { GiLoveSong, GiMusicalNotes, } from "react-icons/gi";
 import { RiUserStarFill } from "react-icons/ri";

@@ -1,28 +1,55 @@
 import React, { useState } from 'react'
 import { IoChevronDown } from "react-icons/io5";
 import {motion} from "framer-motion";
+import { useStateValue } from '../context/StateProvider'
+import { actionType } from '../context/reducer';
 
 const FilterButtons =  ({ filterData, flag })  => {
   const [filterName, setFilterName] =useState(null);
   const [filterMenu, setFilterMenu] =useState(null);
+  const [{artistFilter, albumFilter, languageFilter, filterTerm },dispatch] = useStateValue();
 
   const updateFilterButton = (name) => {
     setFilterName(name);
     setFilterMenu(false);
 
-    
+    if(flag === "Artist")
+    {
+      dispatch({type : actionType.SET_ARTIST_FILTER, artistFilter : name})
+    }
+
+    if(flag === "Album")
+    {
+      dispatch({type : actionType.SET_ALBUM_FILTER, albumFilter : name})
+    }
+
+    if(flag === "Language")
+    {
+      dispatch({type : actionType.SET_LANGUAGE_FILTER, languageFilter : name})
+    }
+
+    if(flag === "Category")
+    {
+      dispatch({type : actionType.SET_FILTER_TERM, filterTerm : name})
+    }
   };
 
   return (
-    <div className="border border-gray-300 rounded-md px-4 py-1 relative cursor-pointer hover:border-gray-400">
+    <div className="border border-gray-300 rounded-md px-4 py-1 relative cursor-pointer hover:border-gray-400 bg-blue-500">
      <p 
-     className="text-base tracking-wide text-textColor flex items-center gap-2 "
+     className="text-base tracking-wide text-white flex items-center gap-2 "
      onClick={() => setFilterMenu(!filterMenu)}
      >{ !filterName && flag}
+     {filterName && (
+      <>
+      {filterName.length>15? `${filterName.slice(0, 14)}...`
+        : filterName}
+      </>
+     )}
      
 
      <IoChevronDown
-          className={`text-base text-textColor duration-150 transition-all ease-in-out ${
+          className={`text-base text-white duration-150 transition-all ease-in-out ${
             filterMenu ? "rotate-180" : "rotate-0"
           }`}
       />
