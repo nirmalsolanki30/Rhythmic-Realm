@@ -3,7 +3,7 @@ import { useStateValue } from '../context/StateProvider'
 import {motion} from "framer-motion"
 import moment from "moment"
 import { changingUserRole, getAllUsers, removeUser } from '../api'
-import { actionType } from '../Context/reducer'
+import { actionType } from '../context/reducer'
 import {MdDelete} from "react-icons/md"
 
 export const DashboardUserCard = ({data, index}) =>{
