@@ -23,8 +23,10 @@ import { MdDelete } from "react-icons/md";
 import { storage } from "../config/firebase.config";
 import { useStateValue } from "../context/StateProvider";
 import FilterButtons from "./FilterButtons";
+
 import { actionType } from "../context/reducer";
 import { filterByLanguage, filters } from "../utils/spportfunctions";
+
 //import song from "../../../server/models/song";
 // import AlertSuccess from "./AlertSuccess";
 // import AlertError from "./AlertError";
@@ -32,7 +34,7 @@ import { filterByLanguage, filters } from "../utils/spportfunctions";
 const DashBoardNewSong = () => {
 
   const [songName , setSongName]=useState("");
-  const [{allArtists, allAlbums, allSongs, artistFilter, albumFilter, languageFilter, filterTerm},dispatch]=useStateValue();
+  const [{allArtists, allAlbums, allSongs, artistFilter, albumFilter, languageFilter, filterTerm,alertType},dispatch]=useStateValue();
   const [isImageLoading,setIsImageLoading] = useState(false);
   const [songImageCover,setSongImageCover] = useState(null);
   const [imageUploadProgress,setImageUploaProgress] = useState(0);
@@ -78,20 +80,46 @@ const DashBoardNewSong = () => {
     if(isImage){
       setIsImageLoading(true);
       setIsAudioLoading(true);
+      setIsAlbumUploading(true);
+      setIsArtistUploading(true);
+      
     }
 
     const deleteRef = ref(storage, url);
     deleteObject(deleteRef).then(() => {
       setSongImageCover(null);
       setIsImageLoading(false);
+      setAlbumImageCover(null);
+      setArtistImageCover(null);
       setAudioImageCover(null);
       setIsAudioLoading(false);
+      setIsAlbumUploading(false);
+      setIsArtistUploading(false);
     })
+    dispatch({
+      type :actionType.SET_ALERT_TYPE,
+      alertType : "success"
+    })
+    setInterval(() => {
+      dispatch({
+      type :actionType.SET_ALERT_TYPE,
+      alertType : null
+    })
+    }, 10000);
   }
 
   const saveSong = ()=> {
     if(!songImageCover || !audioImageCover) {
-      // throw the error
+      dispatch({
+        type :actionType.SET_ALERT_TYPE,
+        alertType : "danger"
+      })
+      setInterval(() => {
+        dispatch({
+        type :actionType.SET_ALERT_TYPE,
+        alertType : null
+      })
+      }, 10000);
     }
     else {
       setIsAudioLoading(true);
@@ -115,6 +143,16 @@ const DashBoardNewSong = () => {
           });
         });
       });
+      dispatch({
+        type :actionType.SET_ALERT_TYPE,
+        alertType : "success"
+      })
+      setInterval(() => {
+        dispatch({
+        type :actionType.SET_ALERT_TYPE,
+        alertType : null
+      })
+      }, 10000);
 
       setSongName(null);
       setIsAudioLoading(false);
@@ -131,8 +169,16 @@ const DashBoardNewSong = () => {
 
  const saveArtist=()=>{
   if(!artistImageCover || !artistName || !twitter || !instagram){
-    // alert  message
-    console.log("hi bro")
+    dispatch({
+      type :actionType.SET_ALERT_TYPE,
+      alertType : "danger"
+    })
+    setInterval(() => {
+      dispatch({
+      type :actionType.SET_ALERT_TYPE,
+      alertType : null
+    })
+    }, 10000);
   }
   else{
     setIsArtistUploading(true);
@@ -150,6 +196,16 @@ const DashBoardNewSong = () => {
         allArtists: data.artist });
       });
     });
+    dispatch({
+      type :actionType.SET_ALERT_TYPE,
+      alertType : "success"
+    })
+    setInterval(() => {
+      dispatch({
+      type :actionType.SET_ALERT_TYPE,
+      alertType : null
+    })
+    }, 10000);
 
     setIsArtistUploading(false);
     setArtistImageCover(null);
@@ -160,7 +216,16 @@ const DashBoardNewSong = () => {
 
  const saveAlbum=()=>{
    if(!AlbumImageCover || !albumName){
-
+    dispatch({
+      type :actionType.SET_ALERT_TYPE,
+      alertType : "danger"
+    })
+    setInterval(() => {
+      dispatch({
+      type :actionType.SET_ALERT_TYPE,
+      alertType : null
+    })
+    }, 10000);
    }
    else{
      setIsAlbumUploading(true);
@@ -175,6 +240,16 @@ const DashBoardNewSong = () => {
         allAlbums: data.album });
       });
      });
+     dispatch({
+      type :actionType.SET_ALERT_TYPE,
+      alertType : "success"
+    })
+    setInterval(() => {
+      dispatch({
+      type :actionType.SET_ALERT_TYPE,
+      alertType : null
+    })
+    }, 10000);
 
      setIsAlbumUploading(false);
      setAlbumImageCover(null);
@@ -427,6 +502,7 @@ export const FileLoader = ({progress}) => {
 }
 
 export const FileUploader = ({updateState, setProgress, isLoading, isImage}) => {
+  const [{alertType},dispatch]=useStateValue();
   const uploadFile =(e)=> {
     isLoading(true);
     const uploadedFile = e.target.files[0];
@@ -441,13 +517,32 @@ export const FileUploader = ({updateState, setProgress, isLoading, isImage}) => 
           setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
         },
         (error) => {
-          console.log(error);
+          dispatch({
+            type :actionType.SET_ALERT_TYPE,
+            alertType : "danger"
+          })
+          setInterval(() => {
+            dispatch({
+            type :actionType.SET_ALERT_TYPE,
+            alertType : null
+          })
+          }, 10000);
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             updateState(downloadURL);
             isLoading(false);
           })
+          dispatch({
+            type :actionType.SET_ALERT_TYPE,
+            alertType : "success"
+          })
+          setInterval(() => {
+            dispatch({
+            type :actionType.SET_ALERT_TYPE,
+            alertType : null
+          })
+          }, 10000);
         }
       )
   }
