@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStateValue } from '../context/StateProvider'
 import {motion} from "framer-motion"
 import moment from "moment"
@@ -11,6 +11,19 @@ export const DashboardUserCard = ({data, index}) =>{
   const [{user, allUsers},dispatch] = useStateValue();
   const createdAt = moment(new Date(data.createdAt)).format("MMMM Do YYYY");
   const[isUserRoleUpdated,setIsUserRoleUpdated] = useState(false)
+
+  useEffect(() => {
+    if (!allUsers) {
+      getAllUsers().then((data) => {
+        console.log(data);
+        console.log('rendering dashboard users')
+        dispatch({
+          type: actionType.SET_ALL_USERS,
+          allUsers: data.cursor,
+        });
+      });
+    }
+  },[])
 
   const updateUserRole = (userId, role) =>{
     setIsUserRoleUpdated(false)

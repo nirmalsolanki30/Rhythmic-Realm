@@ -261,8 +261,8 @@ const DashBoardNewSong = () => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center p-4 border border-gray-300 rounded-md gap-4">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
-        <div className="flex flex-col items-center justify-center gap-4">
+      {/*<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">*/}
+        <div className="flex w-full flex-col items-center justify-center gap-4">
             <input type="text" 
             placeholder="Type your song name"
             className="w-full p-3 rounded-md text-base font-semibold outline-none shadow-sm border border-gray-300 bg-yellow-500 text-white placeholder-white " 
@@ -335,7 +335,7 @@ const DashBoardNewSong = () => {
         
         
         
-      </div>
+      {/*</div>*/}
       {/* Image Uploading  for Artist*/}
       <p className="text-xl font-semibold text-headingColor">Artist Details</p>
       <div className="bg-teal-200 backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-gray-900 cursor-pointer">
