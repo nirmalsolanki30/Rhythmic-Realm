@@ -6,8 +6,8 @@ import Login from './components/Login'
 import { Dashboard } from './components';
 import { app } from './config/firebase.config'
 import { getAuth } from 'firebase/auth'
-
-import {AnimatePresence} from 'framer-motion'
+import MusicPlayer from './components/MusicPlayer'
+import {AnimatePresence,motion} from 'framer-motion'
 import { validateUser } from './api';
 import { useStateValue } from './context/StateProvider';
 import { actionType } from './context/reducer';
@@ -16,7 +16,7 @@ const App = () => {
 
   const firebaseAuth = getAuth(app);
 
-  const [{user},dispatch]=useStateValue();
+  const [{user,isSongPlaying},dispatch]=useStateValue();
   const[authState,setAuthState] = useState(false);
 
   const[auth,setAuth]=useState(false || window.localStorage.getItem("auth")==="true")
@@ -55,6 +55,14 @@ const App = () => {
         <Route path='/dashboard/*' element={< Dashboard/>}/>
       </Routes>
       </BrowserRouter>
+      {isSongPlaying && (<motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            className={`fixed min-w-[700px] h-26  inset-x-0 bottom-0  bg-cardOverlay drop-shadow-2xl backdrop-blur-md flex items-center justify-center`}
+          >
+            <MusicPlayer />
+          </motion.div>)}
     </div>
     </AnimatePresence>
   );

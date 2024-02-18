@@ -83,7 +83,7 @@ export const SongContainer = ({ data }) => {
 
 export const SongCard = ({ data, index, type }) => {
   const [isDelete,setIsDelete] = useState(false);
-  const [{allArtists, allAlbums, allSongs, alertType},dispatch]=useStateValue();
+  const [{allArtists, allAlbums, allSongs, alertType,isSongPlaying,songIndex},dispatch]=useStateValue();
   const Deletedata = (data) => {
     //For Deleting Song
     // if(type === "song")
@@ -226,7 +226,26 @@ export const SongCard = ({ data, index, type }) => {
       })
     // }
   }
-   return <motion.div className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:shadow-xl hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col items-center">
+  const addToContext=()=>{
+    if(!isSongPlaying){
+    dispatch({
+      type:actionType.SET_ISSONG_PLAYING,
+      isSongPlaying:true,
+    });
+   }
+   if(songIndex!==index){
+    dispatch({
+      type: actionType.SET_SONG_INDEX,
+      songIndex: index,
+    });
+   }
+
+  }
+
+   return (
+   <motion.div className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:shadow-xl hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col items-center"
+      onClick={type==='song' && addToContext}
+   >
     <div className="w-40 min-w-[160px] h-40 min-h-[160px] rounded-lg drop-shadow-lg relative overflow-hidden">
         <motion.img
           whileHover={{ scale: 1.05 }}
@@ -270,6 +289,7 @@ export const SongCard = ({ data, index, type }) => {
         </motion.div>
       )}    
    </motion.div>
+   )
 };
 
 export default DashboardSongs
