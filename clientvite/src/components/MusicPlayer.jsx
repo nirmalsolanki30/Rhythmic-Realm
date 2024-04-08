@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useStateValue} from '../context/StateProvider';
+import { useStateValue} from '../Context/StateProvider';
 import {motion} from "framer-motion";
 import { RiPlayListFill } from "react-icons/ri";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { getAllSongs } from '../api';
-import { actionType } from '../context/reducer';
+import { actionType } from '../Context/reducer';
 import { IoMdClose } from "react-icons/io";
 import { IoArrowRedo, IoArrowUndo, IoMusicalNote } from "react-icons/io5";
 

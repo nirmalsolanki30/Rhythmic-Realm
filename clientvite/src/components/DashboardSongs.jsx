@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import {NavLink} from'react-router-dom';
 import { IoAdd, IoPause, IoPlay, IoTrash } from "react-icons/io5";
 import { AiOutlineClear } from "react-icons/ai";
-import { useStateValue } from "../context/StateProvider";
+import { useStateValue } from "../Context/StateProvider";
 import { deleteAlbumById, deleteArtistById, deleteSongById, getAllAlbums, getAllArtist, getAllSongs } from "../api";
 import { motion } from "framer-motion";
-import { actionType } from "../context/reducer";
+import { actionType } from "../Context/reducer";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "../config/firebase.config";
 

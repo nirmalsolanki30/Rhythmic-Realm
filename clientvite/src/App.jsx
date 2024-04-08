@@ -9,8 +9,8 @@ import { getAuth } from 'firebase/auth'
 import MusicPlayer from './components/MusicPlayer'
 import {AnimatePresence,motion} from 'framer-motion'
 import { validateUser } from './api';
-import { useStateValue } from './context/StateProvider';
-import { actionType } from './context/reducer';
+import { useStateValue } from './Context/StateProvider';
+import { actionType } from './Context/reducer';
 
 const App = () => {
 

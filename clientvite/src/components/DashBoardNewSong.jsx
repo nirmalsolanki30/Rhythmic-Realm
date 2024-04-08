@@ -25,7 +25,7 @@ import { useStateValue } from "../context/StateProvider";
 import FilterButtons from "./FilterButtons";
 
 import { actionType } from "../context/reducer";
-import { filterByLanguage, filters } from "../utils/spportfunctions";
+import { filterByLanguage, filters } from "../utils/supportfunctions";
 
 //import song from "../../../server/models/song";
 // import AlertSuccess from "./AlertSuccess";
