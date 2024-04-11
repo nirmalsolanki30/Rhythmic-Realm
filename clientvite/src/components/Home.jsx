@@ -36,20 +36,20 @@ const Home = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (searchTerm.length > 0) {
-  //     const filtered = allSongs.filter(
-  //       (data) =>
-  //         data.artist.toLowerCase().includes(searchTerm) ||
-  //         data.language.toLowerCase().includes(searchTerm) ||
-  //         data.name.toLowerCase().includes(searchTerm) ||
-  //         data.artist.includes(artistFilter)
-  //     );
-  //     setFilteredSongs(filtered);
-  //   } else {
-  //     setFilteredSongs(null);
-  //   }
-  // }, [searchTerm]);
+  useEffect(() => {
+    if (searchTerm.length > 0) {
+      const filtered = allSongs.filter(
+        (data) =>
+          data.artist.toLowerCase().includes(searchTerm) ||
+          data.language.toLowerCase().includes(searchTerm) ||
+          data.name.toLowerCase().includes(searchTerm) ||
+          data.artist.includes(artistFilter)
+      );
+      setFilteredSongs(filtered);
+    } else {
+      setFilteredSongs(null);
+    }
+  }, [searchTerm]);
 
   useEffect(() => {
     const filtered = allSongs?.filter((data) => data.artist === artistFilter);
@@ -96,14 +96,14 @@ const Home = () => {
       <Header />
       <SearchBar />
 
-      {/* {searchTerm.length > 0 && (
+      {searchTerm.length > 0 && (
         <p className="my-4 text-base text-textColor">
           Searched for :
           <span className="text-xl text-cartBg font-semibold">
             {searchTerm}
           </span>
         </p>
-      )} */}
+      )}
 
       <Filter setFilteredSongs={setFilteredSongs} />
 
@@ -120,7 +120,7 @@ export const HomeSongContainer = ({ musics }) => {
   const addSongToContext = (index) => {
     if (!isSongPlaying) {
       dispatch({
-        type: actionType.SET_SONG_PLAYING,
+        type: actionType.SET_ISSONG_PLAYING ,
         isSongPlaying: true,
       });
     }

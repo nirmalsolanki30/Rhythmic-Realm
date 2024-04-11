@@ -1,6 +1,7 @@
 export const actionType={
     SET_USER : "SET_USER",
     SET_ALL_USERS : "SET_ALL_USERS",
+    SET_SEARCH_TERM: "SET_SEARCH_TERM",
     SET_ALL_ARTISTS :"SET_ALL_ARTISTS",
     SET_ALL_ALBUMS : "SET_ALL_ALBUMS",
     SET_ALL_SONGS : "SET_ALL_SONGS",
@@ -89,6 +90,13 @@ const reducer =(state,action)=>{
                  ...state,
                  songIndex : action.songIndex,
             }
+
+            case actionType.SET_SEARCH_TERM:
+      return {
+        ...state,
+        searchTerm: action.searchTerm,
+      };
+
         default :
             return state;
     }
